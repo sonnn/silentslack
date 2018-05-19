@@ -19,7 +19,6 @@ export default class GuardScreen extends React.Component<{
           enterButton={<Icon type="unlock" />}
           size="large"
           onSearch={this.submit}
-          value="xoxp-198937974935-198114619794-204097379584-5571bf56db6165da9b0f7b3185eba241"
         />
       </Layout>
     );
