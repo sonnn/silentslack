@@ -37,16 +37,28 @@ jobs:
           command: |
             ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
 
+      # stop service
+      - run:
+          name: Stop service
+          command: |
+            ssh $SSH_USER@$SSH_HOST 'pm2 stop static-page-server-80 && exit'
+
       # remove old files
       - run:
           name: Remove old file
           command: |
-            ssh $SSH_USER@$SSH_HOST 'rm -rf /usr/src/test_circle/* && exit'
+            ssh $SSH_USER@$SSH_HOST 'rm -rf /usr/src/silentslack/* && exit'
 
       # deploy
       - run:
           name: Deploy Over SSH
           command: |
-            scp -r build/* $SSH_USER@$SSH_HOST:/usr/src/test_circle
+            scp -r build/* $SSH_USER@$SSH_HOST:/usr/src/silentslack
+
+      # stop service
+      - run:
+          name: Start service
+          command: |
+            ssh $SSH_USER@$SSH_HOST 'pm2 start static-page-server-80 && exit'
 
 
