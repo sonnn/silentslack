@@ -31,7 +31,7 @@ jobs:
       # run build
       - run: yarn build
 
-      - run: ll
+      - run: ls -l
   
   deploy:
     machine:
@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - run:
-          command: ll
+          command: ls -l
 
       - run:
           name: Deploy Over SSH
