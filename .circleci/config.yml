@@ -32,6 +32,11 @@ jobs:
       - run: yarn build
 
       - run:
+          name: Fix host authenticity for $SSH_HOST
+          command: |
+            ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+
+      - run:
           name: Deploy Over SSH
           command: |
             scp -r build/* $SSH_USER@$SSH_HOST:/usr/src/test_circle/*
