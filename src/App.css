@@ -29,3 +29,8 @@ body {
   background: #00c200 !important;
   color: #000000 !important;
 }
+
+.ant-list-item-meta-title,
+.ant-list-item-meta-description {
+  color: #00c200 !important;
+}

@@ -1,11 +1,18 @@
 import { Layout, List } from 'antd';
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
+import PixelImage from './PixelImage';
 
-export default class MessageList extends React.Component<{
-  data: any[];
-  users: { [key: string]: any };
-}> {
+export default class MessageList extends React.Component<
+  {
+    data: any[];
+    users: { [key: string]: any };
+  },
+  { userImages: { [key: string]: any } }
+> {
+  public state = {
+    userImages: {}
+  };
   private element: any = null;
   private activeScrollTop: boolean = true;
 
@@ -54,6 +61,16 @@ export default class MessageList extends React.Component<{
     return item.user || item.username;
   };
 
+  private getUserAvatar = (item: any) => {
+    if (this.props.users) {
+      const profile = this.props.users[item.user];
+      if (profile && profile.profile) {
+        return <PixelImage src={profile.profile.image_48} />;
+      }
+    }
+    return null;
+  };
+
   private renderListItem = (item: {
     text: string;
     type: string;
@@ -69,7 +86,12 @@ export default class MessageList extends React.Component<{
           textAlign: 'left'
         }}
       >
-        {`${this.getUserName(item)}: ${item.text}`}
+        <List.Item.Meta
+          style={{ color: styles.fontColor }}
+          avatar={this.getUserAvatar(item)}
+          title={`${this.getUserName(item)}:`}
+          description={item.text}
+        />
       </List.Item>
     );
   };
