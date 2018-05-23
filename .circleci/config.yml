@@ -23,8 +23,6 @@ jobs:
 
       - run: yarn install
 
-      - run: rm -rf ~/repo/build
-
       - save_cache:
           paths:
             - node_modules
@@ -32,6 +30,8 @@ jobs:
         
       # run build
       - run: yarn build
+
+      - run: ll
   
   deploy:
     machine:
@@ -41,12 +41,12 @@ jobs:
 
     steps:
       - run:
-          command: ls && pwd
+          command: ll
 
       - run:
           name: Deploy Over SSH
           command: |
-            scp -r ./build/* $SSH_USER@$SSH_HOST:/usr/src/test_circle/*
+            scp -r build/* $SSH_USER@$SSH_HOST:/usr/src/test_circle/*
 
 workflows:
   version: 2
