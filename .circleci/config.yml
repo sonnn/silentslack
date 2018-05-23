@@ -41,7 +41,7 @@ jobs:
       - run:
           name: Remove old file
           command: |
-            ssh $SSH_USER@$SSH_HOST && rm -rf /usr/src/test_circle/* && exit
+            ssh $SSH_USER@$SSH_HOST 'rm -rf /usr/src/test_circle/* && exit'
 
       # deploy
       - run:
