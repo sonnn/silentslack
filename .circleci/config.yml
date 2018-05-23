@@ -31,11 +31,19 @@ jobs:
       # run build
       - run: yarn build
 
+      # fix known host
       - run:
           name: Fix host authenticity for $SSH_HOST
           command: |
             ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
 
+      # remove old files
+      - run:
+          name: Remove old file
+          command: |
+            ssh $SSH_USER@$SSH_HOST && rm -rf /usr/src/test_circle/* && exit
+
+      # deploy
       - run:
           name: Deploy Over SSH
           command: |
