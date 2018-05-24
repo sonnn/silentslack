@@ -133,7 +133,12 @@ function reducer(state: IState = initState, action: Actions) {
           ...state,
           message: {
             ...state.message,
-            data: [...state.message.data, action.payload]
+            data: [
+              ...state.message.data.slice(
+                Math.max(state.message.data.length - 99, 1)
+              ),
+              action.payload
+            ]
           }
         };
       }
@@ -143,7 +148,9 @@ function reducer(state: IState = initState, action: Actions) {
           message: {
             ...state.message,
             data: [
-              ...state.message.data,
+              ...state.message.data.slice(
+                Math.max(state.message.data.length - 99, 1)
+              ),
               { ...action.payload, user: state.profile.data.user_id }
             ]
           }

@@ -65,7 +65,7 @@ export default class MessageList extends React.Component<
     if (this.props.users) {
       const profile = this.props.users[item.user];
       if (profile && profile.profile) {
-        return <PixelImage src={profile.profile.image_48} />;
+        return <PixelImage key={item.user} src={profile.profile.image_48} />;
       }
     }
     return null;
