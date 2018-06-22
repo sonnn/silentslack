@@ -91,17 +91,21 @@ function* fetchGroups() {
 
 function* fetchAuth(action: any) {
   try {
-    const storeAuth = localStorage.getItem('silent-slack-auth');
+    let storeAuth = localStorage.getItem('silent-slack-auth');
     
     if (storeAuth) {
+      storeAuth = JSON.parse(storeAuth);
       bindToken(storeAuth.token);
       yield put(loadAuth.success(storeAuth));
     } else {
       const response = yield call(_authTest, action.payload);
 
       if (response.ok) {
-        bindToken(action.payload);
-        yield put(loadAuth.success({ ...response, token: action.payload }));
+        storeAuth = { ...response, token: action.payload };
+        localStorage.setItem('silent-slack', JSON.stringify(storeAuth));
+        
+        bindToken(action.payload);       
+        yield put(loadAuth.success(storeAuth));
       }
     }
   } catch (e) {
