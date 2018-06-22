@@ -91,7 +91,7 @@ function* fetchGroups() {
 
 function* fetchAuth(action: any) {
   try {
-    let storeAuth = JSON.parse(localStorage.getItem('silent-slack-auth'));
+    let storeAuth = JSON.parse(localStorage.getItem('silent-slack-auth') || 'null');
     
     if (storeAuth) {
       bindToken(storeAuth.token);
