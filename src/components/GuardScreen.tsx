@@ -4,6 +4,12 @@ import * as React from 'react';
 export default class GuardScreen extends React.Component<{
   authentication: (token: string) => void;
 }> {
+  public componentDidMount = () => {
+    if (localStorage.getItem('silent-slack')) {
+      this.submit('silent-slack');
+    }
+  }
+  
   public render() {
     return (
       <Layout
